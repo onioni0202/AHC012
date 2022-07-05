@@ -28,9 +28,9 @@ fn input() -> Input {
 fn main() {
     let input_info: Input = input();
     let mut cut_edges = vec![];
-    let new_cut_edges = (0, 10, 0, -10);
+    let new_cut_edge = (0, 10, 0, -10);
     let mut pieces = vec![(0..input_info.strawberry_num).collect::<Vec<_>>()];
-    cut_pieces(&input_info, &mut cut_edges, &mut pieces, new_cut_edges);
+    cut_pieces(&input_info, &mut cut_edges, &mut pieces, new_cut_edge);
     let start_time = std::time::Instant::now();
     let duration = 2.95;
     let mut rng = rand_pcg::Pcg64Mcg::new(SEED);
@@ -112,9 +112,9 @@ fn cut_pieces(
     input: &Input,
     cut_edges: &mut Vec<(i32, i32, i32, i32)>,
     pieces: &mut Vec<Vec<usize>>,
-    new_cut_edges: (i32, i32, i32, i32),
+    new_cut_edge: (i32, i32, i32, i32),
 ) {
-    let (px, py, qx, qy) = new_cut_edges;
+    let (px, py, qx, qy) = new_cut_edge;
     let mut new_pieces = vec![];
     for piece in pieces.clone() {
         let mut left = vec![];
@@ -135,16 +135,16 @@ fn cut_pieces(
             new_pieces.push(right);
         }
     }
-    cut_edges.push(new_cut_edges);
+    cut_edges.push(new_cut_edge);
     *pieces = new_pieces;
 }
 
 fn compute_score(
     input: &Input,
     pieces: &Vec<Vec<usize>>,
-    new_cut_edges: (i32, i32, i32, i32),
+    new_cut_edge: (i32, i32, i32, i32),
 ) -> f32 {
-    let (px, py, qx, qy) = new_cut_edges;
+    let (px, py, qx, qy) = new_cut_edge;
     let mut b = vec![0; 10];
     for piece in pieces {
         let mut left = 0;
